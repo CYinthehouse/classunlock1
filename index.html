@@ -66,16 +66,16 @@
 ._gpart{position:absolute;width:6px;height:6px;background:#c8a040;border-radius:1px;pointer-events:none;opacity:0;}
 ._gpart.fly{animation:_gFly var(--dur) ease-out forwards;}
 @keyframes _gFly{0%{transform:translate(0,0) rotate(0deg) scale(1);opacity:1}100%{transform:translate(var(--tx),var(--ty)) rotate(var(--r)) scale(.3);opacity:0}}
-._gctr{display:flex;justify-content:center;align-items:center;gap:8px;margin-bottom:4px;color:#aaa;font-size:9px;letter-spacing:.1em;}
+._gctr{display:flex;justify-content:center;align-items:center;gap:8px;margin-bottom:2px;color:#ccc;font-size:9px;letter-spacing:.1em;}
 .tier-3{background:#1a0808;color:#e24b4a;border:1px solid #e24b4a55;}.tier-2{background:#081208;color:#639922;border:1px solid #63992255;}.tier-1{background:#08080e;color:#378add;border:1px solid #378add55;}
-._grc{background:#0e0e0e;border-radius:16px;padding:8px 10px 8px;display:flex;flex-direction:column;align-items:center;gap:4px;transform:scale(.85);transition:transform .4s cubic-bezier(.34,1.56,.64,1);max-width:340px;width:90vw;max-height:540px;overflow:hidden;}
-._grrws{display:flex;flex-direction:column;gap:4px;width:100%;}
-._grrw{display:flex;align-items:center;gap:6px;font-size:6px;letter-spacing:.05em;text-transform:uppercase;padding:5px 8px;border-radius:6px;background:#141414;border:1px solid #2a2a2a;}
-._grrw ._grrl{flex:0 0 72px;color:#666;white-space:nowrap;border-right:1px solid #2a2a2a;padding-right:8px;}
+._grc{background:#0e0e0e;border-radius:16px;padding:14px 12px;display:flex;flex-direction:column;align-items:center;gap:10px;transform:scale(.85);transition:transform .4s cubic-bezier(.34,1.56,.64,1);max-width:340px;width:90vw;max-height:540px;overflow:hidden;}
+._grrws{display:flex;flex-direction:column;gap:6px;width:100%;}
+._grrw{display:flex;align-items:center;gap:8px;font-size:6px;letter-spacing:.05em;text-transform:uppercase;padding:8px 10px;border-radius:6px;background:#141414;border:1px solid #2a2a2a;}
+._grrw ._grrl{flex:0 0 72px;color:#aaa;white-space:nowrap;border-right:1px solid #444;padding-right:8px;}
 ._grrw ._grrn{flex:1;color:#fff;font-size:7px;line-height:1.4;word-break:break-word;}
 ._grrw ._grrt{font-size:6px;padding:3px 6px;border-radius:4px;white-space:nowrap;text-align:center;flex-shrink:0;}
 ._grrw ._grrp{color:#f5c842;font-size:7px;white-space:nowrap;text-align:right;flex-shrink:0;min-width:42px;}
-._gcmb{font-size:7px;color:#aaa;letter-spacing:.06em;text-align:center;border-top:1px solid #222;padding-top:6px;width:100%;}
+._gcmb{font-size:7px;color:#ccc;letter-spacing:.06em;text-align:center;border-top:1px solid #333;padding-top:8px;margin-top:2px;width:100%;}
 ._gcmb span{color:#f5c842;}
 ._gsrb{background:#1a1a2e;border:1px solid #378add;color:#378add;font-family:"Press Start 2P",monospace;font-size:6px;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:6px;cursor:pointer;transition:background .2s,color .2s;}
 ._gsrb:hover{background:#378add;color:#fff;}
@@ -959,7 +959,7 @@
               }
               var ctr=gGetEl('_grollctr');
               if(ctr){
-                ctr.innerHTML='<span style="color:#888">Roll</span> <span style="color:#f5c842;font-size:13px;">'+(currentRoll+1)+'</span> <span style="color:#888">of</span> <span style="color:#f5c842;font-size:13px;">'+rolls+'</span>';
+                ctr.innerHTML='<span style="color:#ccc">Roll</span> <span style="color:#f5c842;font-size:13px;">'+(currentRoll+1)+'</span> <span style="color:#ccc">of</span> <span style="color:#f5c842;font-size:13px;">'+rolls+'</span>';
               }
               var remaining=rolls-(currentRoll+1);
               var closeBtns=gGetEl('_grclose');
@@ -1207,7 +1207,7 @@
                 var loseDiv=document.createElement('div');
                 loseDiv.style.cssText='position:absolute;inset:0;z-index:9999998;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(0,0,0,0.92);border-radius:inherit;';
                 loseDiv.innerHTML='<div style="font-family:\'Press Start 2P\',monospace;font-size:20px;color:#ff4444;text-shadow:0 0 20px #ff4444;margin-bottom:16px;">YOU LOST<br>THE ROLL!</div>'
-                    +'<div style="font-family:\'Press Start 2P\',monospace;font-size:10px;color:#888;margin-bottom:28px;">Not enough taps</div>'
+                    +'<div style="font-family:\'Press Start 2P\',monospace;font-size:10px;color:#ccc;margin-bottom:28px;">Not enough taps</div>'
                     +'<button id="_gloseOk" style="background:rgba(255,255,255,0.08);border:2px solid #888;color:#fff;font-family:\'Press Start 2P\',monospace;font-size:10px;padding:12px 28px;border-radius:8px;cursor:pointer;">OK</button>';
                 ov2.appendChild(loseDiv);
                 document.getElementById('_gloseOk').addEventListener('click',function(){
