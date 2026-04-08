@@ -722,7 +722,7 @@
                   '<div class="_gcmb" id="_grcp"></div>',
                   '<button class="_gsrb" id="_gsrb">❖ See All Rarities</button>',
                   '<div class="_gctr" id="_grollctr"></div>',
-                  '<button id="_grclose" style="background:none;border:1px solid #888;color:#fff;font-family:\'Courier New\',monospace;font-size:10px;letter-spacing:.15em;text-transform:uppercase;padding:7px 22px;border-radius:6px;cursor:pointer;">&#x2715; &nbsp; Close</button>',
+                  '<div id="_grclose" style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;"></div>',
                 '</div>',
               '<div class="_grarov" id="_grarov">',
                 '<div class="_grarpop">',
@@ -958,7 +958,19 @@
                 if(roll.glitter)cp.innerHTML='Pull chance: '+_gachaFmtPct(roll.pct)+' &nbsp;<span>\u2756 GLITTER \u2756</span>';
               }
               var ctr=gGetEl('_grollctr');
-              if(ctr)ctr.innerHTML='<span style="color:#888">Roll</span> <span style="color:#f5c842;font-size:13px;">'+(currentRoll+1)+'</span> <span style="color:#888">of</span> <span style="color:#f5c842;font-size:13px;">'+rolls+'</span>';
+              if(ctr){
+                ctr.innerHTML='<span style="color:#888">Roll</span> <span style="color:#f5c842;font-size:13px;">'+(currentRoll+1)+'</span> <span style="color:#888">of</span> <span style="color:#f5c842;font-size:13px;">'+rolls+'</span>';
+              }
+              var remaining=rolls-(currentRoll+1);
+              var closeBtns=gGetEl('_grclose');
+              if(closeBtns){
+                if(remaining>0){
+                  closeBtns.innerHTML='<button id="_gPlayAgain" style="background:#1a1a2e;border:1px solid #f5c842;color:#f5c842;font-family:\'Press Start 2P\',monospace;font-size:7px;padding:8px 14px;border-radius:6px;cursor:pointer;">▶ Play Again ('+remaining+' more)</button>'
+                    +'<button id="_gEndGame" style="background:#1a0808;border:1px solid #e24b4a;color:#e24b4a;font-family:\'Press Start 2P\',monospace;font-size:7px;padding:8px 14px;border-radius:6px;cursor:pointer;">✕ End Game</button>';
+                } else {
+                  closeBtns.innerHTML='<button id="_gPlayAgain" style="background:linear-gradient(180deg,#29ff7a,#00aa2a);border:2px solid #80ffb0;color:#fff;font-family:\'Press Start 2P\',monospace;font-size:7px;padding:8px 18px;border-radius:6px;cursor:pointer;text-shadow:-1px -1px 0 #000,1px 1px 0 #000;">✅ Finish</button>';
+                }
+              }
 
               var rovEl=gGetEl('_grov');if(rovEl)rovEl.classList.add('show');
               gApplyGlitter(roll.glitter);
@@ -1211,16 +1223,18 @@
 
             function gAdvance(e){
               if(!e) return;
-              if(e.target&&(e.target.id==='_grclose'||e.target.id==='_gwclose'||e.target.id==='_gwpop'||e.target.id==='_gloseOk')) return;
+              if(e.target&&(e.target.id==='_grclose'||e.target.id==='_gwclose'||e.target.id==='_gwpop'||e.target.id==='_gloseOk'||e.target.id==='_gPlayAgain'||e.target.id==='_gEndGame')) return;
               if(!gEggStarted) return;
               if(document.getElementById('_grov')&&document.getElementById('_grov').classList.contains('show')) return;
               // Only count the tap and trigger effects — cracks happen on timer only
               gTapCount++;
               gTriggerEffects();
             }
-            // Close button for reveal card
+            // Play Again / End Game / Finish buttons (delegated from _grclose container)
             document.getElementById('_grclose').addEventListener('click',function(e){
               e.stopPropagation();
+              var tgt=e.target;
+              if(!tgt||tgt.tagName!=='BUTTON') return;
               var r=rollResults[currentRoll];
               allWon.push({
                 animal:r.animal.name, animalKey:r.animal.key,
@@ -1229,11 +1243,16 @@
                 glitter:r.glitter, pct:r.pct,
                 imageUrl:_gachaGetImg(r.animal.key,r.color.key,r.item.key)||''
               });
-              currentRoll++;
-              if(currentRoll<rolls){
-                gResetForNextRoll();
-              } else {
+              if(tgt.id==='_gEndGame'){
                 gFinishAllRolls();
+              } else {
+                var remaining=rolls-(currentRoll+1);
+                currentRoll++;
+                if(remaining>0){
+                  gResetForNextRoll();
+                } else {
+                  gFinishAllRolls();
+                }
               }
             });
 
